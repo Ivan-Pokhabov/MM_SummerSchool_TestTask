@@ -22,12 +22,12 @@ int isBMP(FILE* const file)
     return OK;
 }
 
-int readBMP(char* fileName)
+int printBMPHeadersInfo(char* fileName)
 {
-    const int positions[HEADERS_NUMBER] = { 18, 22, 26, 28, 30, 34, 38, 42, 46, 50 };
+    const unsigned short int positions[HEADERS_NUMBER] = { 18, 22, 26, 28, 30, 34, 38, 42, 46, 50 };
     const char* const names[HEADERS_NUMBER] = { "Width", "Height", "Planes", "Bits/pixel", "Compression", "Image size",
                                     "Pixels/meter(Ox)", "Pixels/meter(Oy)", "Number of colours", "Important colours" };
-    const int sizeOfHeader[HEADERS_NUMBER] = { 4, 4, 2, 2, 4, 4, 4, 4, 4, 4 };
+    const unsigned short int sizeOfHeader[HEADERS_NUMBER] = { 4, 4, 2, 2, 4, 4, 4, 4, 4, 4 };
 
     FILE* const file = fopen(fileName, "r");
     if (file == NULL)
@@ -60,5 +60,5 @@ int main(int argc, char** argv)
         return INCORRECT_ARGUMENTS;
     }
 
-    return readBMP(argv[1]);
+    return printBMPHeadersInfo(argv[1]);
 }
