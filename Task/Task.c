@@ -15,7 +15,6 @@ int isBMP(FILE* const file)
     fread(format, sizeof(char), 2, file);
     if (strcmp(format, BMP) != 0)
     {
-        fclose(file);
         return INCORRECT_FORMAT;
     }
 
