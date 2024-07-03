@@ -28,6 +28,7 @@ int printBMPHeadersInfo(char* fileName)
     const char* const names[HEADERS_NUMBER] = { "Width", "Height", "Planes", "Bits/pixel", "Compression", "Image size",
                                     "Pixels/meter(Ox)", "Pixels/meter(Oy)", "Number of colours", "Important colours" };
     const unsigned short int sizeOfHeader[HEADERS_NUMBER] = { 4, 4, 2, 2, 4, 4, 4, 4, 4, 4 };
+    const char* compressionType[] = { "none", "RLE8", "RLE4", "Bitfields", "JPEG", "PNG", "Alpha Bitfields" };
 
     FILE* const file = fopen(fileName, "r");
     if (file == NULL)
@@ -45,6 +46,11 @@ int printBMPHeadersInfo(char* fileName)
     {
         fseek(file, positions[i], SEEK_SET);
         fread(&value, sizeOfHeader[i], 1, file);
+        if (strcmp("Compression", names[i]) == 0)
+        {
+            printf("%s: %s\n", names[i], compressionType[value]);
+        }
+
         printf("%s: %d\n", names[i], value);
     }
 
