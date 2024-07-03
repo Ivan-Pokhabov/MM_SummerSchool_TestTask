@@ -1,8 +1,6 @@
 # MM_SummerSchool_TestTask
-# BMP Viewer
+# BMP headers reader
 Application that prints the header of a bmp file in human readable format. Application only supports BMP versions 3, 4, 5.
-
-## Getting started
 
 ### Requirements
 - Make
