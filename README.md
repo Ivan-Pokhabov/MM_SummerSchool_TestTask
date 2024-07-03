@@ -1,5 +1,6 @@
 # MM_SummerSchool_TestTask
 # BMP headers reader
+[![GitHub Actions CI](https://github.com/Ivan-Pokhabov/MM_SummerSchool_TestTask/actions/workflows/ci.yml/badge.svg)](https://github.com/Ivan-Pokhabov/MM_SummerSchool_TestTask/actions/workflows/ci.yml)
 Application that prints the header of a bmp file in human readable format. Application only supports BMP versions 3, 4, 5.
 
 ### Requirements
