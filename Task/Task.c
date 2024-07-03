@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 
 #define HEADERS_NUMBER 10
 
@@ -10,24 +8,35 @@
 #define INCORRECT_ARGUMENTS -2
 #define INCORRECT_FORMAT -3
 
-int readBmp(char* fileName)
+int isBMP(FILE* const file)
 {
-    int positions[HEADERS_NUMBER] = { 18, 22, 26, 28, 30, 34, 38, 42, 46, 50 };
-    char* names[HEADERS_NUMBER] = { "Width", "Height", "Planes", "Bits/pixel", "Compression", "Image size",
-                                    "Pixels/meter(Ox)", "Pixels/meter(Oy)", "Number of colours", "Important colours" };
-    int sizeOfHeader[HEADERS_NUMBER] = { 4, 4, 2, 2, 4, 4, 4, 4, 4, 4 };
+    const char* BMP = "BM";
+    char format[3] = "";
+    fread(format, sizeof(char), 2, file);
+    if (strcmp(format, BMP) != 0)
+    {
+        fclose(file);
+        return INCORRECT_FORMAT;
+    }
 
-    FILE* file = fopen(fileName, "r");
+    return OK;
+}
+
+int readBMP(char* fileName)
+{
+    const int positions[HEADERS_NUMBER] = { 18, 22, 26, 28, 30, 34, 38, 42, 46, 50 };
+    const char* const names[HEADERS_NUMBER] = { "Width", "Height", "Planes", "Bits/pixel", "Compression", "Image size",
+                                    "Pixels/meter(Ox)", "Pixels/meter(Oy)", "Number of colours", "Important colours" };
+    const int sizeOfHeader[HEADERS_NUMBER] = { 4, 4, 2, 2, 4, 4, 4, 4, 4, 4 };
+
+    FILE* const file = fopen(fileName, "r");
     if (file == NULL)
     {
         return OPEN_FILE_ERROR;
     }
 
-    char format[3] = "";
-    fread(format, sizeof(char), 2, file);
-    if (strcmp(format, "BM") != 0)
+    if (isBMP(file) != OK)
     {
-        printf("!%s!", format);
         return INCORRECT_FORMAT;
     }
 
@@ -51,5 +60,5 @@ int main(int argc, char** argv)
         return INCORRECT_ARGUMENTS;
     }
 
-    return readBmp(argv[1]);
+    return readBMP(argv[1]);
 }
