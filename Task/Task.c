@@ -38,6 +38,7 @@ int printBMPHeadersInfo(char* fileName)
 
     if (isBMP(file) != OK)
     {
+        fclose(file);
         return INCORRECT_FORMAT;
     }
 
