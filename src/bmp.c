@@ -8,7 +8,7 @@
 #define INCORRECT_ARGUMENTS -2
 #define INCORRECT_FORMAT -3
 
-int isBMP(FILE* const file)
+int isBMP(FILE* file)
 {
     const char* BMP = "BM";
     char format[3] = "";
@@ -29,7 +29,7 @@ int printBMPHeadersInfo(char* fileName)
     const unsigned short int sizeOfHeader[HEADERS_NUMBER] = { 4, 4, 2, 2, 4, 4, 4, 4, 4, 4 };
     const char* compressionType[] = { "none", "RLE8", "RLE4", "Bitfields", "JPEG", "PNG", "Alpha Bitfields" };
 
-    FILE* const file = fopen(fileName, "r");
+    FILE* file = fopen(fileName, "r");
     if (file == NULL)
     {
         return OPEN_FILE_ERROR;
@@ -50,8 +50,12 @@ int printBMPHeadersInfo(char* fileName)
         {
             printf("%s: %s\n", names[i], compressionType[value]);
         }
+        else
+        {
+            printf("%s: %d\n", names[i], value);
+        }
 
-        printf("%s: %d\n", names[i], value);
+        value = 0;
     }
 
     fclose(file);
